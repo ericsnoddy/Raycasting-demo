@@ -70,9 +70,9 @@ class Player:
         
 
     def draw(self):
-        pg.draw.line(self.screen, 'yellow', (self.x * TILEPX, self.y * TILEPX),
-                        (self.x * TILEPX + WIDTH * math.cos(self.angle),
-                            self.y * TILEPX + WIDTH * math.sin(self.angle)), 2)
+        # pg.draw.line(self.screen, 'yellow', (self.x * TILEPX, self.y * TILEPX),
+        #                 (self.x * TILEPX + WIDTH * math.cos(self.angle),
+        #                     self.y * TILEPX + WIDTH * math.sin(self.angle)), 2)
         pg.draw.circle(self.screen, 'green', (self.x * TILEPX, self.y * TILEPX), 15)
         
     def update(self):

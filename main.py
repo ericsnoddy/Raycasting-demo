@@ -8,6 +8,7 @@ import pygame as pg
 from settings import *
 from map import *
 from player import *
+from raycasting import *
 
 
 class Game:
@@ -22,11 +23,13 @@ class Game:
     def new_game(self):
         self.map = Map(self)
         self.player = Player(self)
+        self.ray_casting = RayCasting(self)
 
     def update(self):
 
         # update game objects
         self.player.update()
+        self.ray_casting.update()
 
         # update regions of the display which have changed since last call
         pg.display.flip()
