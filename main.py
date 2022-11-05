@@ -15,6 +15,7 @@ from object_renderer import *
 class Game:
     def __init__(self):
         pg.init()
+        pg.mouse.set_visible(False)
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
         self.delta_time = 1 # track the time between frames for consistency adjustment

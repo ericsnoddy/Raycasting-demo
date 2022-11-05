@@ -15,6 +15,12 @@ PLAYER_ROT_SPEED = 0.002
     # (something, something trig - instead limit how close player can get) 
 PLAYER_SIZE_SCALE = 60
 
+# mouse control
+MOUSE_SENSITIVITY = 0.0003
+MOUSE_MAX_REL = 40
+MOUSE_BORDER_LEFT = 100
+MOUSE_BORDER_RIGHT = WIDTH - MOUSE_BORDER_LEFT
+
 # raycasting - see '_tutorial/raycasting-settings.jpg'
 FOV = pi / 3    # 60deg
 HALF_FOV = FOV / 2    # 30deg

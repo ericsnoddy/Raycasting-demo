@@ -48,11 +48,11 @@ class Player:
         # apply the speed differentials only if wall does not block player movement
         self.check_wall_collision(dx, dy)
 
-        if keys[pg.K_LEFT]:
-            self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
+        # if keys[pg.K_LEFT]:
+        #     self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
 
-        if keys[pg.K_RIGHT]:
-            self.angle += PLAYER_ROT_SPEED * self.game.delta_time
+        # if keys[pg.K_RIGHT]:
+        #     self.angle += PLAYER_ROT_SPEED * self.game.delta_time
 
         self.angle %= math.tau  # keeps the angle within 2pi (tau = 2 * pi)
 
@@ -80,9 +80,24 @@ class Player:
         #                 (self.x * TILEPX + WIDTH * math.cos(self.angle),
         #                     self.y * TILEPX + WIDTH * math.sin(self.angle)), 2)
         pg.draw.circle(self.screen, 'green', (self.x * TILEPX, self.y * TILEPX), 15)
+    
+    def mouse_control(self):
+        mx, my = pg.mouse.get_pos()
+
+        if mx < MOUSE_BORDER_LEFT or mx > MOUSE_BORDER_RIGHT:
+            pg.mouse.set_pos([HALF_WIDTH, HALF_HEIGHT])
+        # get relative x-coord mouse movement since previous frame
+        self.rel_x = pg.mouse.get_rel()[0]
+        # clamp this value between -MOUSE_MAX_REL and MOUSE_MAX_REL
+        self.rel_x = max(-MOUSE_MAX_REL, min(MOUSE_MAX_REL, self.rel_x))
+        # adjust player angle taking into account mouse sensitivity and delta time.
+        # multiplying by delta_time is the reason for the small numbers in mouse settings
+        self.angle += self.rel_x * MOUSE_SENSITIVITY * self.game.delta_time
+
         
     def update(self):
         self.movement()
+        self.mouse_control()
 
     @property
     def pos(self):
