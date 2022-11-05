@@ -30,8 +30,10 @@ class ObjectRenderer:
 
     def render_game_objects(self):
         # list by (depth, wall_slice, wall_pos) of each texture subsurface
-        list_objects = self.game.ray_casting.objects_to_render
-        for _, image, pos in list_objects:
+        # objs must be sorted by dist so closer walls are drawn after further entities, else see-thru walls
+        # distance is the first value in the tuple
+        list_objects = sorted(self.game.ray_casting.objects_to_render, key=lambda dist: dist[0], reverse=True)
+        for _dist, image, pos in list_objects:
             self.screen.blit(image, pos)
 
     @staticmethod

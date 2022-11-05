@@ -10,6 +10,7 @@ from map import *
 from player import *
 from raycasting import *
 from object_renderer import *
+from sprite_object import *
 
 
 class Game:
@@ -28,6 +29,7 @@ class Game:
             # call renderer before raycaster so raycaster has access to loaded textures
         self.object_renderer = ObjectRenderer(self)
         self.ray_casting = RayCasting(self)
+        self.static_sprite = Sprite(self)
         
 
     def update(self):
@@ -35,6 +37,7 @@ class Game:
         # update game objects
         self.player.update()
         self.ray_casting.update()
+        self.static_sprite.update()
 
         # update regions of the display which have changed since last call
         pg.display.flip()

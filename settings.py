@@ -25,6 +25,7 @@ MOUSE_BORDER_RIGHT = WIDTH - MOUSE_BORDER_LEFT
 FOV = pi / 3    # 60deg
 HALF_FOV = FOV / 2    # 30deg
 NUM_RAYS = WIDTH // 2    # large but arbitrary
+HALF_NUM_RAYS = WIDTH // 4
 DELTA_ANGLE = FOV / NUM_RAYS    # angle between rays
 MAX_DEPTH = 20   # limit how many grid intersections to project (per x, y-axis)
 
