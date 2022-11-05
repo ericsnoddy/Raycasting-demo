@@ -2,7 +2,7 @@ from math import pi, tan
 
 RES = WIDTH, HEIGHT = 1280, 720
 HALF_WIDTH = WIDTH // 2     # used for projection trig
-HALF_HEIGHT = HEIGHT // 2   # used for projection trig
+HALF_HEIGHT = HEIGHT // 2   # used for projection trig - this is the game's horizon
 TILEPX = 80    # 16x9 grid
 FPS = 60
 
@@ -35,3 +35,4 @@ SCALE = WIDTH // NUM_RAYS
 # texturing
 TEXTURE_SIZE = 256  # px
 HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
+FLOOR_COLOR = (30, 30, 30)
