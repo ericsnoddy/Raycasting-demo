@@ -27,6 +27,11 @@ class Sprite:
         self.dx, self.dy, self.theta, self.screen_x, self.dist, self.norm_dist = 0, 0, 0, 0, 1, 1
         self.sprite_half_width = 0
 
+
+    def update(self):
+        self.get_sprite()
+
+        
     def get_sprite_projection(self):
 
         # as in raycasting we calc height of projection...
@@ -75,9 +80,6 @@ class Sprite:
         if -self.IMAGE_HALF_WIDTH < self.screen_x < (WIDTH + self.IMAGE_HALF_WIDTH) and self.norm_dist > 0.5:
             self.get_sprite_projection()
 
-    def update(self):
-        self.get_sprite()
-
 
 
 class AnimatedSprite(Sprite):
@@ -90,10 +92,12 @@ class AnimatedSprite(Sprite):
         self.animation_time_prev = pg.time.get_ticks()  # time since last frame
         self.animation_trigger = False
 
+
     def update(self):
         super().update()
         self.check_animation_time()
         self.animate(self.images)
+
 
     def animate(self, images):
         if self.animation_trigger:
@@ -107,6 +111,7 @@ class AnimatedSprite(Sprite):
         if now - self.animation_time_prev > self.animation_time:
             self.animation_time_prev = now
             self.animation_trigger = True
+
 
     def get_images(self, path):
         # we use deque for convenient rotation method
