@@ -15,6 +15,7 @@ class Sprite:
                 pos=(10.5, 3.5), scale=0.7, shift=0.37):
         self.game = game
         self.player = game.player
+        
         self.x, self.y = pos
         self.SPRITE_SCALE = scale
         self.SPRITE_HEIGHT_SHIFT = shift

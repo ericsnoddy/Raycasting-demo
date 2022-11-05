@@ -55,11 +55,11 @@ class Game:
 
 
     def draw(self):
-        # self.screen.fill('black')
-        self.object_renderer.draw()
-        self.weapon.draw()
-        # self.map.draw()
-        # self.player.draw()
+        self.screen.fill('black')
+        # self.object_renderer.draw()
+        # self.weapon.draw()
+        self.map.draw()
+        self.player.draw()
 
     def check_events(self):
         for event in pg.event.get():
