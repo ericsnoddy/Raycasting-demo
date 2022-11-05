@@ -30,6 +30,7 @@ class Game:
         self.object_renderer = ObjectRenderer(self)
         self.ray_casting = RayCasting(self)
         self.static_sprite = Sprite(self)
+        self.animated_sprite = AnimatedSprite(self)
         
 
     def update(self):
@@ -38,6 +39,7 @@ class Game:
         self.player.update()
         self.ray_casting.update()
         self.static_sprite.update()
+        self.animated_sprite.update()
 
         # update regions of the display which have changed since last call
         pg.display.flip()

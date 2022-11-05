@@ -1,8 +1,3 @@
-a = 3
-b = 4
-finl = 0
-
-if a < b:
-    finl = a
-else:
-    finl = b
+path='resources/sprites/animated_sprites/green_light/0.png'
+split = path.rsplit('/',1)
+print(split)
