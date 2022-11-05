@@ -1,8 +1,8 @@
 from math import pi, tan
 
 RES = WIDTH, HEIGHT = 1280, 720
-HALF_WIDTH = WIDTH // 2
-HALF_HEIGHT = HEIGHT // 2
+HALF_WIDTH = WIDTH // 2     # used for projection trig
+HALF_HEIGHT = HEIGHT // 2   # used for projection trig
 TILEPX = 80    # 16x9 grid
 FPS = 60
 

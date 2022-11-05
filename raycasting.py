@@ -83,11 +83,44 @@ class RayCasting:
             # we want to use the closer intersection - see 'raycasting-depths-vert-hor.jpg'
             depth = min(depth_vert, depth_hor)
 
+            # That step will leave us with a fish-eye lens effect due to combining polar and Cartesian coords
+            # Especially noticeable up close, we have to scale the depth to correct for distance between the
+            # arc of the projection and tangent of the arc (flat plane of the screen)
+            # That is, we project an arc onto a line by scaling the hypotenuse (depth).
+            # Comment out the following line of code to test the undesired effect:
+            depth *= cos(self.game.player.angle - ray_angle)
+            '''
+            Better albeit still hard to grasp explanation from YT user 'Arnon Marcus':
+            "...the choise of using angle deltas to compute ray directions: In a rectilinear projection as the one used here, 
+            that choice makes the rays hitting the projection plane distributed along it non-uniformly, where they get more 
+            spread-out around the center and more clumped together closer to the right and left edges of the screen (where 
+            this second fish-eye lense effect becomes noticeable). The full fix for that is to instead step along the 
+            projection plane itself (in this case, a projection-line, as it's 2D ray-casting), at a constant step 
+            corresponding to a fixed width of the columns. Then, the ray direction are the vectors from the player's 
+            position to those points on the projection-line - but normalized. This ensures the distribution of the rays is 
+            uniform across the screen, removing that fish-eye lens effect.
+            '''
+
+            #
+            # PROJECTION
+            #
+            # see 'raycasting-projection-sideview.jpg' and 'raycasting-projection-topdown.jpg'
+            proj_height = SCREEN_DIST / (depth + 0.0001)  # avoid div by zero
+
+            # draw walls  -  see 'raycasting-delta-rect.jpg'
+            # we use SCALE factor (settings.py) so we dont consider rays beyond screen RES (performance)
+            # This amounts to distributing rays and hence the rectangles at 2px widths across the screen
+            # this is all we need to convert our 2D raycast plane into 3 dimensions (turn off map.draw() and player.draw())
+            # Also, a REALLY COOL FUNCTION for changing color based on a power of the depth variable, great illusion
+            color = [255 / (1 + depth ** 5 * 0.00002)] * 3
+            pg.draw.rect(self.screen, color, (ray * SCALE, HALF_HEIGHT - proj_height // 2, SCALE, proj_height))
+
+
             # debug draw
-            start_xy = (TILEPX * px, TILEPX * py)
-            end_x = TILEPX * px + TILEPX * depth * cos_a
-            end_y = TILEPX * py + TILEPX * depth * sin_a
-            pg.draw.line(self.screen, 'yellow', start_xy, (end_x, end_y), 2)
+            # start_xy = (TILEPX * px, TILEPX * py)
+            # end_x = TILEPX * px + TILEPX * depth * cos_a
+            # end_y = TILEPX * py + TILEPX * depth * sin_a
+            # pg.draw.line(self.screen, 'yellow', start_xy, (end_x, end_y), 2)
 
             # FINALLY, adding DELTA_ANGLE gives us the angle for the next ray, ready for next loop iter
             ray_angle += DELTA_ANGLE
