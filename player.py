@@ -62,10 +62,16 @@ class Player:
         return (x, y) not in self.game.map.world_map
 
     def check_wall_collision(self, dx, dy):
+
+        # dx, dy depend on delta_time; player size should not so we divide it out
+        # scaling dx, dy provides illusion of player size
+        scale = PLAYER_SIZE_SCALE / self.game.delta_time
+
         # disallow movement (dx, dy) if such movement puts player in wall
-        if self.check_wall(int(self.x + dx), int(self.y)):
+        # scaling dx, dy is how we keep player from getting too close too walls which stretches the texture into pixels 
+        if self.check_wall(int(self.x + dx * scale), int(self.y)):
             self.x += dx
-        if self.check_wall(int(self.x), int(self.y + dy)):
+        if self.check_wall(int(self.x), int(self.y + dy * scale)):
             self.y += dy
         
 

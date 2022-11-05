@@ -16,7 +16,7 @@ class ObjectRenderer:
     def render_game_objects(self):
         # list by (depth, wall_slice, wall_pos) of each texture subsurface
         list_objects = self.game.ray_casting.objects_to_render
-        for depth, image, pos in list_objects:
+        for _, image, pos in list_objects:
             self.screen.blit(image, pos)
 
     @staticmethod

@@ -12,7 +12,7 @@ PLAYER_ANGLE = 0
 PLAYER_SPEED = 0.004
 PLAYER_ROT_SPEED = 0.002
     # to eliminate pixelation on close-up we need to give player a non-pointlike size
-    # (something, something avoiding large numbers in trig) 
+    # (something, something trig - instead limit how close player can get) 
 PLAYER_SIZE_SCALE = 60
 
 # raycasting - see '_tutorial/raycasting-settings.jpg'
