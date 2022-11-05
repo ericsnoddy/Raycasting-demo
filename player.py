@@ -3,6 +3,7 @@ import math
 
 # 3rd party
 import pygame as pg
+from pygame.locals import *
 
 # local
 from settings import *
@@ -14,6 +15,16 @@ class Player:
         self.screen = game.screen
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
+        self.fired = False
+
+    
+    def single_fire_event(self, event):
+        if event.type == MOUSEBUTTONDOWN:
+            if event.button == 1 and not self.fired and not self.game.weapon.reloading:
+                self.game.sound.shotgun.play()
+                self.fired = True
+                self.game.weapon.reloading = True
+
 
     def movement(self):
         # see '_tutorial/player-movement.jpg' and 'direction_vector_math.jpg'
