@@ -12,7 +12,7 @@ from raycasting import *
 from object_renderer import *
 from sprite_object import *
 from object_handler import *
-
+from weapon import *
 
 class Game:
     def __init__(self):
@@ -31,7 +31,8 @@ class Game:
         self.object_renderer = ObjectRenderer(self)
         self.ray_casting = RayCasting(self)
         self.object_handler = ObjectHandler(self)
-        
+        self.shotgun = Weapon(self)
+
 
     def update(self):
 
@@ -39,6 +40,7 @@ class Game:
         self.player.update()
         self.ray_casting.update()
         self.object_handler.update()
+        self.shotgun.update()
 
         # update regions of the display which have changed since last call
         pg.display.flip()
@@ -49,9 +51,11 @@ class Game:
         # display the framerate as the window caption
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
+
     def draw(self):
         # self.screen.fill('black')
         self.object_renderer.draw()
+        self.shotgun.draw()
         # self.map.draw()
         # self.player.draw()
 
