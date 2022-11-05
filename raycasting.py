@@ -15,7 +15,7 @@ class RayCasting:
 
         self.ray_casting_results = []
         self.objects_to_render = []
-        self.textures = game.object_renderer.wall_textures_dict
+        self.textures_dict = game.object_renderer.wall_textures_dict
 
     # Call this method from the update() method
     def get_objects_to_render(self):
@@ -25,16 +25,33 @@ class RayCasting:
         for ray, values in enumerate(self.ray_casting_results):
             depth, proj_height, texture_num, offset = values
 
-            # offset will be an x_coord in [0,1] - see 'render-slice.jpg' for dimensions
-            x, y = offset * (TEXTURE_SIZE - SCALE), 0
-            w, h = SCALE, TEXTURE_SIZE
-            wall_slice = self.textures[texture_num].subsurface(x, y, w, h)
+            # x-pos and width do not need rescaling 
+            # offset will be 0, 1, or decimal in (0,1) - see 'render-slice.jpg'
+            x, w = offset * (TEXTURE_SIZE - SCALE), SCALE
 
-            # scale to the width (SCALE) and projection height of the ray-rectangle
-            wall_slice = pg.transform.scale(wall_slice, (SCALE, proj_height))
+            # As the depth of the ray approaches 0 (texture up close) the proj_height gets very large
+            # this kills performance so we correct this by limiting the proj_height to the size of the display screen
+            if proj_height < HEIGHT:
+                
+                # no height rescaling
+                y, h = 0, TEXTURE_SIZE
+                wall_slice = self.textures_dict[texture_num].subsurface(x, y, w, h)
 
-            # calc pos from ray number (x) and center texture on y-axis (ie, player POV stays on the same centered horizontal plane)
-            wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
+                # scale to the width (SCALE) and projection height of the ray-rectangle
+                wall_slice = pg.transform.scale(wall_slice, (SCALE, proj_height))
+
+                # calc pos from ray number (x) and center texture on y-axis (ie, player POV stays on the same centered horizontal plane)
+                wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
+
+            else:
+                # height rescaling using screen-projection ratio - see 'render-proj_height.jpg'
+                h = TEXTURE_SIZE * HEIGHT / proj_height
+                y = HALF_TEXTURE_SIZE - h // 2
+                wall_slice = self.textures_dict[texture_num].subsurface(x, y, w, h)
+
+                # now the projected height will not exceed the screen height
+                wall_slice = pg.transform.scale(wall_slice, (SCALE, HEIGHT))
+                wall_pos = (ray * SCALE, 0)
 
             # now we have an object with attributes to render: add it to the list
             self.objects_to_render.append((depth, wall_slice, wall_pos))
