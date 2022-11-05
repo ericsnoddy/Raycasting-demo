@@ -39,14 +39,14 @@ class Game:
         # update regions of the display which have changed since last call
         pg.display.flip()
 
-        # returns the time since last frame, ticks the frame consistent with 60 FPS
+        # returns the time since last frame + ticks frames consistent with 60 FPS (or less)
         self.delta_time = self.clock.tick(FPS)
 
         # display the framerate as the window caption
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
-        self.screen.fill('black')
+        # self.screen.fill('black')
         self.object_renderer.draw()
         # self.map.draw()
         # self.player.draw()
