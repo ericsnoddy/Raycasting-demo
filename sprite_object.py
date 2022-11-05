@@ -31,7 +31,7 @@ class Sprite:
     def update(self):
         self.get_sprite()
 
-        
+
     def get_sprite_projection(self):
 
         # as in raycasting we calc height of projection...
@@ -51,6 +51,7 @@ class Sprite:
 
         # append the variables we calc'd as tuple, which is all we need to render the sprite
         self.game.ray_casting.objects_to_render.append((self.norm_dist, image, pos))
+
 
     def get_sprite(self):
         # angle between player and sprite is theta = arctan[(sy - py)/(sx - px))
