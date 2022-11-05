@@ -1,15 +1,20 @@
 # local
 from sprite_object import *
+from npc import *
+
 
 class ObjectHandler:
     def __init__(self, game):
         self.game = game
         self.sprite_list = []
+        self.npc_list = []
+        self.npc_path = 'resources/sprites/npc/'
         self.static_path = 'resources/sprites/static_sprites/'
         self.animated_path = 'resources/sprites/animated_sprites/'
         
         # sprite map
-        add_sprite = self.add_sprite    # brevity shortcuts
+        add_sprite = self.add_sprite   # brevity shortcuts - functions don't need ()
+        add_npc = self.add_npc
         red_light = self.animated_path + 'red_light/0.png'
 
         add_sprite(Sprite(game))
@@ -36,9 +41,15 @@ class ObjectHandler:
         add_sprite(AnimatedSprite(game, pos=(1.5, 30.5)))
         add_sprite(AnimatedSprite(game, pos=(1.5, 24.5)))
 
+        add_npc(NPC(game))
 
     def update(self):
         [sprite.update() for sprite in self.sprite_list]
+        [npc.update() for npc in self.npc_list]
+
+
+    def add_npc(self, npc):
+        self.npc_list.append(npc)
 
 
     def add_sprite(self, sprite):

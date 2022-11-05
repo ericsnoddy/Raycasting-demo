@@ -7,7 +7,7 @@ TILEPX = 80    # 16x9 grid
 FPS = 60
 
 # movement - see also '_tutorial/player-movement.jpg'
-PLAYER_POS = 1.5, 5 # mini_map
+PLAYER_POS = 1.5, 7 # mini_map
 PLAYER_ANGLE = 0
 PLAYER_SPEED = 0.004
 PLAYER_ROT_SPEED = 0.002
