@@ -16,14 +16,44 @@ class Player:
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.fired = False
+        self.health = PLAYER_MAX_HEALTH
+        self.rel = 0
+        self.health_recovery_delay = RECOVERY_DELAY
+        self.time_prev = pg.time.get_ticks()
 
-    
+
+    def recover_health(self):
+        if self.check_health_recovery_delay() and self.health < PLAYER_MAX_HEALTH:
+            self.health += 1
+
+
+    def check_health_recovery_delay(self):
+        now = pg.time.get_ticks()
+        if now - self.time_prev > self.health_recovery_delay:
+            self.health_recovery_delay = now
+            return True
+
+    def check_game_over(self):
+        if self.health < 1:
+            self.game.object_renderer.game_over()
+            pg.display.flip()
+            pg.time.delay(1500)
+            self.game.new_game()
+
+
     def single_fire_event(self, event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1 and not self.fired and not self.game.weapon.reloading:
                 self.game.sound.shotgun.play()
                 self.fired = True
                 self.game.weapon.reloading = True
+
+
+    def get_damage(self, damage):
+        self.health -= damage
+        self.game.object_renderer.player_damage()
+        self.game.sound.player_pain.play()
+        self.check_game_over()
 
 
     def movement(self):
@@ -72,6 +102,7 @@ class Player:
         # on the world_map, obstacles return True and open space returns False, as designed
         return (x, y) not in self.game.map.world_map
 
+
     def check_wall_collision(self, dx, dy):
 
         # dx, dy depend on delta_time; player size should not so we divide it out
@@ -109,6 +140,7 @@ class Player:
     def update(self):
         self.movement()
         self.mouse_control()
+        self.recover_health()
 
     @property
     def pos(self):

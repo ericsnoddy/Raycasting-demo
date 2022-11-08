@@ -5,6 +5,7 @@ HALF_WIDTH = WIDTH // 2     # used for projection trig
 HALF_HEIGHT = HEIGHT // 2   # used for projection trig - this is the game's horizon
 TILEPX = 80    # 16x9 grid
 FPS = 60
+TIMER_MS = 40   # ms delay for repeating global signal event; used as an animation timer
 
 # movement - see also '_tutorial/player-movement.jpg'
 PLAYER_POS = 1.5, 7 # mini_map
@@ -14,6 +15,8 @@ PLAYER_ROT_SPEED = 0.002
     # to eliminate pixelation on close-up we need to give player a non-pointlike size
     # (something, something trig - instead limit how close player can get) 
 PLAYER_SIZE_SCALE = 60
+PLAYER_MAX_HEALTH = 100
+RECOVERY_DELAY = 700  # ms
 
 # mouse control
 MOUSE_SENSITIVITY = 0.0003
@@ -37,3 +40,4 @@ SCALE = WIDTH // NUM_RAYS
 TEXTURE_SIZE = 256  # px
 HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
 FLOOR_COLOR = (30, 30, 30)
+DIGIT_RES = 72, 72  # digit image dimensions
