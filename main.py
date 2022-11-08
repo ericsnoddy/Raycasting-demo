@@ -23,11 +23,10 @@ class Game:
         self.topdown = True if '-2d' in sys.argv else self.topdown
 
         pg.init()
-        pg.mouse.set_visible(False)
+        pg.mouse.set_visible(False)     
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
-        self.delta_time = 1 # track the time between frames for consistency adjustment
-
+        self.delta_time = 1 # track the time between frames; used to error correct variable FPS for smooth movement
         # repeating global trigger for timing events; when triggered it adds the custom flag to the event queue
         self.global_trigger = False
         self.global_event = pg.USEREVENT+0  # see check_events() for event handling
@@ -49,7 +48,6 @@ class Game:
 
 
     def update(self):
-
         # update game objects
         self.player.update()
         self.ray_casting.update()
@@ -90,7 +88,7 @@ class Game:
             # trace fire events
             self.player.single_fire_event(event)
 
-
+    
     def run(self):
         while True:
             self.check_events()

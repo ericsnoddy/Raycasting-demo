@@ -1,10 +1,9 @@
-from random import randrange, random
+def gcd(a, b):
+    if (b > a):
+        (a, b) = (b, a)
+    if a % b == 0:
+        return b
+    else:
+        return gcd(b, a - b)
 
-accuracy = (10, 25)
-roll_goal = randrange(accuracy[0], accuracy[1] + 1) / 100
-roll = random()
-
-if roll < roll_goal:
-    print(f'hit - {roll} < {roll_goal}')
-else:
-    print(f'miss - {roll} > {roll_goal}')
+print(gcd(1366, 768))

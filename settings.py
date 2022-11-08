@@ -1,11 +1,11 @@
 from math import pi, tan
 
-RES = WIDTH, HEIGHT = 1280, 720
+RES = WIDTH, HEIGHT = 1360, 768
 HALF_WIDTH = WIDTH // 2     # used for projection trig
 HALF_HEIGHT = HEIGHT // 2   # used for projection trig - this is the game's horizon
-TILEPX = 80    # 16x9 grid
+TILEPX = 100    # 16x9 grid
 FPS = 60
-TIMER_MS = 40   # ms delay for repeating global signal event; used as an animation timer
+TIMER_MS = 60   # ms delay for repeating global signal event; used as an animation timer
 
 # movement - see also '_tutorial/player-movement.jpg'
 PLAYER_POS = 1.5, 7 # mini_map
@@ -15,7 +15,7 @@ PLAYER_ROT_SPEED = 0.002
     # to eliminate pixelation on close-up we need to give player a non-pointlike size
     # (something, something trig - instead limit how close player can get) 
 PLAYER_SIZE_SCALE = 60
-PLAYER_MAX_HEALTH = 100
+PLAYER_MAX_HEALTH = 200
 RECOVERY_DELAY = 700  # ms
 
 # mouse control
