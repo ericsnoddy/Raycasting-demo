@@ -56,14 +56,15 @@ class ObjectHandler:
     def update(self):
         # build a dict of current positions so we ensure npcs do not marge/overlap one another while pathfinding.
         self.npc_locations = {npc.map_pos for npc in self.npc_list if npc.alive}
+        self.check_victory()
 
         # call the update method for all objects in our lists
         [sprite.update() for sprite in self.sprite_list]
         [npc.update() for npc in self.npc_list]
 
 
-    def check_win(self):
-        if not len(self.npc_positions):
+    def check_victory(self):
+        if not len(self.npc_locations):
             self.game.object_renderer.victory()
             pg.display.flip()
             pg.time.delay(1500)

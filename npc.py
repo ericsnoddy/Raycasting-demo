@@ -21,8 +21,8 @@ class NPC(AnimatedSprite):
         self.speed = 0.03
         self.size = 10
         self.health = 100
-        self.attack_damage = (7, 12)      # range, including end
-        self.accuracy_percent = (10, 22)  # range, including end
+        self.attack_damage = (3, 7)       # range, including end
+        self.accuracy_percent = (25, 35)  # range, including end
         self.alive = True
         self.pain = False
 
@@ -258,7 +258,7 @@ class CacoDemonNPC(NPC):
         self.search_dist = 10
         self.health = 150
         self.attack_damage = (18, 24)
-        self.speed = 0.075
+        self.speed = 0.06
         self.accuracy_percent = (40, 60)
 
 
