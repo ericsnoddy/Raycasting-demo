@@ -28,12 +28,13 @@ class Game:
         self.clock = pg.time.Clock()
         self.delta_time = 1 # track the time between frames for consistency adjustment
 
-        # we use a global trigger for timing events; if triggered it adds the custom flag to the event queue
+        # repeating global trigger for timing events; when triggered it adds the custom flag to the event queue
         self.global_trigger = False
         self.global_event = pg.USEREVENT+0  # see check_events() for event handling
-        pg.time.set_timer(self.global_event, TIMER_MS)    # generate a repeating custom event signal (millisec)
+        pg.time.set_timer(self.global_event, TIMER_MS)
 
         self.new_game()
+
 
     def new_game(self):
         self.map = Map(self)
@@ -81,6 +82,8 @@ class Game:
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+            
+            # flags True every TIMER_MS ms
             elif event.type == self.global_event:
                 self.global_trigger = True
 
