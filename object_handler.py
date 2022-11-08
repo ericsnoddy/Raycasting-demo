@@ -62,6 +62,14 @@ class ObjectHandler:
         [npc.update() for npc in self.npc_list]
 
 
+    def check_win(self):
+        if not len(self.npc_positions):
+            self.game.object_renderer.victory()
+            pg.display.flip()
+            pg.time.delay(1500)
+            self.game.new_game()
+
+
     def add_npc(self, npc):
         self.npc_list.append(npc)
 

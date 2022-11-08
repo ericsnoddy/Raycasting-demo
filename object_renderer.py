@@ -14,6 +14,7 @@ class ObjectRenderer:
         self.blood_screen = self.get_texture('resources/textures/blood_screen.png', RES)
         self.digit_images = [self.get_texture(f'resources/textures/digits/{i}.png', DIGIT_RES) for i in range(11)]
         self.game_over_image = self.get_texture('resources/textures/game_over.png', RES)
+        self.victory_image = self.get_texture('resources/textures/win.png', RES)
 
         # map generates an iterator after performing the given function on each item in an iterable
             # in this case, map turns each int in range(11) into a string and yields as in iterator
@@ -22,7 +23,6 @@ class ObjectRenderer:
         # dict converts the list of tuples into a dict of key:value pairs
         self.digits = dict(zip(map(str, range(11)), self.digit_images))
 
-        self.game_over
 
     def draw(self):
         self.draw_background()
@@ -30,9 +30,14 @@ class ObjectRenderer:
         self.draw_player_health()
 
 
+    def victory(self):
+        self.screen.blit(self.victory_image, (0, 0))
+
+
     def game_over(self):
         self.screen.blit(self.game_over_image, (0,0))
         
+
     def draw_player_health(self):
         health = str(self.game.player.health)
         for i, char in enumerate(health):
@@ -55,6 +60,7 @@ class ObjectRenderer:
 
         # floor - just fill bottom half of screen with solid color
         pg.draw.rect(self.screen, FLOOR_COLOR, (0, HALF_HEIGHT, WIDTH, HEIGHT))
+
 
     def render_game_objects(self):
         # list by (depth, wall_slice, wall_pos) of each texture subsurface
