@@ -8,12 +8,12 @@ FPS = 60
 TIMER_MS = 60   # ms delay for repeating global signal event; used as an animation timer
 
 # movement - see also '_tutorial/player-movement.jpg'
-PLAYER_POS = 1.5, 7 # mini_map
+PLAYER_POS = 1.5, 7 # mini_map coords
 PLAYER_ANGLE = 0
 PLAYER_SPEED = 0.004
 PLAYER_ROT_SPEED = 0.002
     # to eliminate pixelation on close-up we need to give player a non-pointlike size
-    # (something, something trig - instead limit how close player can get) 
+    # (something, something trig) - instead we limit how close player can get to objs 
 PLAYER_SIZE_SCALE = 60
 PLAYER_MAX_HEALTH = 200
 RECOVERY_DELAY = 700  # ms
