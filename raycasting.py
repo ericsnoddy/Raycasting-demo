@@ -72,7 +72,7 @@ class RayCasting:
         # see 'raycasting-angle.jpg'
         ray_angle = self.game.player.angle - HALF_FOV + 0.0001  # avoid div by zero
 
-        for ray in range(NUM_RAYS):
+        for _ in range(NUM_RAYS):
             cos_a = cos(ray_angle)
             sin_a = sin(ray_angle)
 
@@ -93,7 +93,7 @@ class RayCasting:
             dy = delta_depth * sin_a
 
             # now we have everything we need to cast a ray and find intersections with verticals
-            for i in range(MAX_DEPTH):
+            for __ in range(MAX_DEPTH):
                 # now we can check if the tile of the vertical intersection is a wall:
                 tile_vert = int(x_vert), int(y_vert)
                 if tile_vert in self.world_map:
@@ -119,7 +119,7 @@ class RayCasting:
             delta_depth = dy / sin_a
             dx = delta_depth * cos_a
 
-            for i in range(MAX_DEPTH):
+            for __ in range(MAX_DEPTH):
                 # check if the tile of the horizontal interesction is a wall
                 tile_hor = int(x_hor), int(y_hor)
                 if tile_hor in self.world_map:
